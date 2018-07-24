@@ -1,0 +1,9 @@
+It took 66.6203 seconds to write 1 256MB files, which is 30.7414Mbits per second.
+It took 72.0093 seconds to write 2 128MB files, which is 28.4408Mbits per second.
+It took 74.0297 seconds to write 4 64MB files, which is 27.6646Mbits per second.
+It took 78.7764 seconds to write 8 32MB files, which is 25.9977Mbits per second.
+It took 73.6694 seconds to write 16 16MB files, which is 27.7999Mbits per second.
+It took 74.4467 seconds to write 32 8MB files, which is 27.5096Mbits per second.
+It took 74.978 seconds to write 64 4MB files, which is 27.3147Mbits per second.
+It took 75.5165 seconds to write 128 2MB files, which is 27.1199Mbits per second.
+It took 78.029 seconds to write 256 1MB files, which is 26.2467Mbits per second.
