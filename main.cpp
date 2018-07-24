@@ -146,7 +146,7 @@ int main()
     }
     resultsFile.close();
 
-#endif // MEM_MEM_TEST
+#endif // MEM_TEST
 
 #ifdef COMBO_TEST
     ofstream resultsFile;
