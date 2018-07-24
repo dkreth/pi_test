@@ -38,6 +38,7 @@
 
 #define SPI_TEST
 #define MEM_TEST
+#define MEM_BACKWARDS_TEST
 #define COMBO_TEST
 
 #define TRANSMITLEN (10000)
@@ -45,7 +46,7 @@
 
 #define NUMBER_OF_TRIALS (100)
 #define LG_NUMBER_OF_TRIALS (100)
-#define SPI_CALL_LENGTH (32)
+#define SPI_CALL_LENGTH (256)
 #define NUM_SPI_CALLS (600000)
 
 
@@ -73,7 +74,7 @@ int main()
 #ifdef SPI_TEST
     setup_spi();
     ofstream spi_fileStream;
-    spi_fileStream.open("/home/pi/pi_test/test_results/SPI_TEST_results3.txt",ios::out);
+    spi_fileStream.open("/home/pi/pi_test/test_results/SPI_TEST_results/256blocks/SPI_TEST_results.txt",ios::out);
     char send[TRANSMITLEN] = {};
     char received[TRANSMITLEN]={};
     for(int i=0;i<TRANSMITLEN;i++){
@@ -109,7 +110,7 @@ int main()
 #ifdef MEM_TEST
 
     ofstream mem_resultsFile;
-    mem_resultsFile.open("/home/pi/pi_test/test_results/MEM_TEST_results3.txt",ios::out);
+    mem_resultsFile.open("/home/pi/pi_test/test_results/MEM_TEST_results/256blocks/MEM_TEST_results.txt",ios::out);
     ofstream mem_fileStream;// for writing binary files
 
     int file_count_iterator = 0;
@@ -142,9 +143,40 @@ int main()
 
 #endif // MEM_TEST
 
+#ifdef MEM_BACKWARDS_TEST
+
+    mem_resultsFile.open("/home/pi/pi_test/test_results/MEM_TEST_results/256blocks/MEM_BACKWARDS_TEST_results.txt",ios::out);
+
+    file_count_iterator = 0;
+    #define BUFSIZE 1024
+    for(int i=0;i<BUFSIZE;i++)buffer[i]=i;
+    num_files = 256;
+    file_size=1;
+    for(;file_size<257; num_files/=2,file_size*=2){
+
+        gettimeofday(&mem_start_time,NULL);
+        for(int k=0;k<num_files;k++){//number of files
+            file_count_iterator++;
+            sprintf(fileName,"/media/pi/UPTIMEDRIVE1/test_output_bins/test%d.bin",file_count_iterator);
+            mem_fileStream.open(fileName,ios::out|ios::binary);
+            for(int j=0;j<file_size*1024;j++){//size of each file
+                mem_fileStream.write(buffer,BUFSIZE);
+            }
+            mem_fileStream.close();
+        }
+        gettimeofday(&mem_end_time,NULL);
+        float mem_timeElapsed = ((mem_end_time.tv_sec*1000000.0+mem_end_time.tv_usec)-(mem_start_time.tv_sec*1000000.0+mem_start_time.tv_usec))/1000000.0;
+        cout << "It took " << mem_timeElapsed << " seconds to write " << num_files << " " << file_size << "MB files, which is " << 256*8/mem_timeElapsed<< "Mbits per second." << endl;
+        mem_resultsFile << "It took " << mem_timeElapsed << " seconds to write " << num_files << " " << file_size << "MB files, which is " << 256*8/mem_timeElapsed<< "Mbits per second." << endl;
+    }
+    mem_resultsFile.close();
+
+#endif // MEM_BACKWARDS_TEST
+
+
 #ifdef COMBO_TEST
     ofstream combo_resultsFile;
-    combo_resultsFile.open("/home/pi/pi_test/test_results/COMBO_TEST_results3.txt",ios::out);
+    combo_resultsFile.open("/home/pi/pi_test/test_results/COMBO_TEST_results/256blocks/COMBO_TEST_results.txt",ios::out);
     setup_spi();
     char combo_send[SPI_CALL_LENGTH]={};
     char combo_received[SPI_CALL_LENGTH]={};
