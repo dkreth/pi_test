@@ -1,0 +1,56 @@
+block size 1
+ Mb/s: 3.09981
+ MB/s: 0.387477
+realToTheoretical 0.0619963
+block size 2
+ Mb/s: 6.21094
+ MB/s: 0.776367
+realToTheoretical 0.124219
+block size 4
+ Mb/s: 10.6525
+ MB/s: 1.33156
+realToTheoretical 0.213049
+block size 8
+ Mb/s: 21.6165
+ MB/s: 2.70206
+realToTheoretical 0.43233
+block size 16
+ Mb/s: 23.0722
+ MB/s: 2.88403
+realToTheoretical 0.461444
+block size 32
+ Mb/s: 30.3537
+ MB/s: 3.79421
+realToTheoretical 0.607074
+block size 64
+ Mb/s: 31.7699
+ MB/s: 3.97123
+realToTheoretical 0.635397
+block size 128
+ Mb/s: 32.4739
+ MB/s: 4.05924
+realToTheoretical 0.649478
+block size 256
+ Mb/s: 32.1119
+ MB/s: 4.01399
+realToTheoretical 0.642238
+block size 512
+ Mb/s: 31.2597
+ MB/s: 3.90746
+realToTheoretical 0.625194
+block size 1024
+ Mb/s: 31.748
+ MB/s: 3.9685
+realToTheoretical 0.63496
+block size 2048
+ Mb/s: 31.5559
+ MB/s: 3.94449
+realToTheoretical 0.631119
+block size 4096
+ Mb/s: 31.719
+ MB/s: 3.96488
+realToTheoretical 0.63438
+block size 8192
+ Mb/s: 31.4947
+ MB/s: 3.93684
+realToTheoretical 0.629894
