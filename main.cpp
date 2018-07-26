@@ -1,53 +1,31 @@
 #include <stdlib.h>
 
 #include <iostream>
-#include <string>
-#include <algorithm>
 #include <fstream>
 
-#include <climits>
-#include <numeric>
-#include <functional>
-
-#include <wiringPi.h>
 #include <bcm2835.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <dirent.h>
 
-#include <errno.h>
-#include <stdio.h>
-#include <vector>
-
-#include <sstream>
-#include <string.h>
-
-#include<iomanip>
-#include<time.h>
 #include<sys/time.h>
 
 #define CTS_A 2
 #define STE 8
 #define EN_LDO_MSP 27
-#define SPI_CLK 11
-
-#define PI_BUFFER_SIZE 65536*16
-#define COMMAND_BUFFER_SIZE 16
-
-#define SERIAL_NUMBER_FILE "/home/pi/serial.txt"
 
 #define SPI_TEST
 #define MEM_TEST
 #define MEM_BACKWARDS_TEST
 #define COMBO_TEST
 
+#define SPI_TEST_FILE "/home/pi/pi_test/test_results/256blocks/SPI_TEST_results/SPI_TEST_results.txt"
+#define MEM_TEST_FILE "/home/pi/pi_test/test_results/256blocks/MEM_TEST_results/MEM_TEST_results.txt"
+#define MEM_BACKWARDS_TEST_FILE "/home/pi/pi_test/test_results/256blocks/MEM_TEST_results/MEM_BACKWARDS_TEST_results.txt"
+
 #define TRANSMITLEN (10000)
 #define NUM_OPERATIONS (10000)
 
-#define NUMBER_OF_TRIALS (100)
-#define LG_NUMBER_OF_TRIALS (100)
+#define NUMBER_OF_TRIALS (100)//10 trials takes about 1 minute. 100 trials takes about 10 minutes.
 #define SPI_CALL_LENGTH (256)
-#define NUM_SPI_CALLS (600000)
+#define NUM_SPI_CALLS (75000)
 
 
 
@@ -74,7 +52,7 @@ int main()
 #ifdef SPI_TEST
     setup_spi();
     ofstream spi_fileStream;
-    spi_fileStream.open("/home/pi/pi_test/test_results/SPI_TEST_results/256blocks/SPI_TEST_results.txt",ios::out);
+    spi_fileStream.open(SPI_TEST_FILE,ios::out);
     char send[TRANSMITLEN] = {};
     char received[TRANSMITLEN]={};
     for(int i=0;i<TRANSMITLEN;i++){
@@ -110,7 +88,7 @@ int main()
 #ifdef MEM_TEST
 
     ofstream mem_resultsFile;
-    mem_resultsFile.open("/home/pi/pi_test/test_results/MEM_TEST_results/256blocks/MEM_TEST_results.txt",ios::out);
+    mem_resultsFile.open(MEM_TEST_FILE,ios::out);
     ofstream mem_fileStream;// for writing binary files
 
     int file_count_iterator = 0;
@@ -145,7 +123,7 @@ int main()
 
 #ifdef MEM_BACKWARDS_TEST
 
-    mem_resultsFile.open("/home/pi/pi_test/test_results/MEM_TEST_results/256blocks/MEM_BACKWARDS_TEST_results.txt",ios::out);
+    mem_resultsFile.open(MEM_BACKWARDS_TEST_FILE,ios::out);
 
     file_count_iterator = 0;
     #define BUFSIZE 1024
@@ -173,10 +151,9 @@ int main()
 
 #endif // MEM_BACKWARDS_TEST
 
-
 #ifdef COMBO_TEST
     ofstream combo_resultsFile;
-    combo_resultsFile.open("/home/pi/pi_test/test_results/COMBO_TEST_results/256blocks/COMBO_TEST_results.txt",ios::out);
+    combo_resultsFile.open("/home/pi/pi_test/test_results/256blocks/COMBO_TEST_results/COMBO_TEST_results.txt",ios::out);
     setup_spi();
     char combo_send[SPI_CALL_LENGTH]={};
     char combo_received[SPI_CALL_LENGTH]={};
@@ -190,7 +167,7 @@ int main()
     for(int trialNumber=0;trialNumber<NUMBER_OF_TRIALS; trialNumber++){
         gettimeofday(&combo_start_time,NULL);
         ofstream combo_fileStream;
-        sprintf(combo_fileName,"/media/pi/UPTIMEDRIVE1/test_output_bins/test%d.bin",trialNumber);
+        sprintf(combo_fileName,"/media/pi/UPTIMEDRIVE1/new_output_bins/test%d.bin",trialNumber);
         combo_fileStream.open(combo_fileName,ios::out|ios::binary);
         for(int i=0;i<NUM_SPI_CALLS;i++){
             bcm2835_spi_transfernb(combo_send, combo_received, SPI_CALL_LENGTH);
@@ -213,8 +190,8 @@ int main()
     combo_resultsFile <<"average speed: " << averageSpeed << "Mb/s"<<endl;
     combo_resultsFile.close();
 
-        bcm2835_spi_end();
-        bcm2835_close();
+    bcm2835_spi_end();
+    bcm2835_close();
 
 #endif // COMBO_TEST
 
