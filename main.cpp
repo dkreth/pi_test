@@ -89,6 +89,10 @@ int main()
 
     ofstream mem_resultsFile;
     mem_resultsFile.open(MEM_TEST_FILE,ios::out);
+    if(!mem_resultsFile.is_open()){
+        cout << "mem_resultsFile failed to open! Exiting program." << endl;
+        return 1;
+    }
     ofstream mem_fileStream;// for writing binary files
 
     int file_count_iterator = 0;
@@ -107,6 +111,10 @@ int main()
             file_count_iterator++;
             sprintf(fileName,"/media/pi/UPTIMEDRIVE1/test_output_bins/test%d.bin",file_count_iterator);
             mem_fileStream.open(fileName,ios::out|ios::binary);
+            if(!mem_fileStream.is_open()){
+                cout << "mem_fileStream failed to open! Exiting program." << endl;
+                return 1;
+            }
             for(int j=0;j<file_size*1024;j++){//size of each file
                 mem_fileStream.write(buffer,BUFSIZE);
             }
@@ -124,6 +132,11 @@ int main()
 #ifdef MEM_BACKWARDS_TEST
 
     mem_resultsFile.open(MEM_BACKWARDS_TEST_FILE,ios::out);
+    if(!mem_resultsFile.is_open()){
+        cout << "mem_resultsFile for backwards test failed to open! Exiting program." << endl;
+        return 1;
+    }
+
 
     file_count_iterator = 0;
     #define BUFSIZE 1024
@@ -137,6 +150,10 @@ int main()
             file_count_iterator++;
             sprintf(fileName,"/media/pi/UPTIMEDRIVE1/test_output_bins/test%d.bin",file_count_iterator);
             mem_fileStream.open(fileName,ios::out|ios::binary);
+            if(!mem_resultsFile.is_open()){
+                cout << "memfileStream for backwards test failed to open! Exiting program." << endl;
+                return 1;
+            }
             for(int j=0;j<file_size*1024;j++){//size of each file
                 mem_fileStream.write(buffer,BUFSIZE);
             }
@@ -154,6 +171,10 @@ int main()
 #ifdef COMBO_TEST
     ofstream combo_resultsFile;
     combo_resultsFile.open("/home/pi/pi_test/test_results/256blocks/COMBO_TEST_results/COMBO_TEST_results.txt",ios::out);
+    if(!mem_resultsFile.is_open()){
+        cout << "combo_resultsFile failed to open! Exiting program." << endl;
+        return 1;
+    }
     setup_spi();
     char combo_send[SPI_CALL_LENGTH]={};
     char combo_received[SPI_CALL_LENGTH]={};
@@ -169,6 +190,10 @@ int main()
         ofstream combo_fileStream;
         sprintf(combo_fileName,"/media/pi/UPTIMEDRIVE1/new_output_bins/test%d.bin",trialNumber);
         combo_fileStream.open(combo_fileName,ios::out|ios::binary);
+        if(!mem_resultsFile.is_open()){
+            cout << "combo_fileStream failed to open! Exiting program." << endl;
+            return 1;
+        }
         for(int i=0;i<NUM_SPI_CALLS;i++){
             bcm2835_spi_transfernb(combo_send, combo_received, SPI_CALL_LENGTH);
             combo_fileStream.write(combo_received,SPI_CALL_LENGTH);
