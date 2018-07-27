@@ -16,9 +16,9 @@
 #define MEM_BACKWARDS_TEST
 #define COMBO_TEST
 
-#define SPI_TEST_FILE "/home/pi/pi_test/test_results/256blocks/SPI_TEST_results/SPI_TEST_results.txt"
-#define MEM_TEST_FILE "/home/pi/pi_test/test_results/256blocks/MEM_TEST_results/MEM_TEST_results.txt"
-#define MEM_BACKWARDS_TEST_FILE "/home/pi/pi_test/test_results/256blocks/MEM_TEST_results/MEM_BACKWARDS_TEST_results.txt"
+#define SPI_TEST_FILE "/home/pi/pi_test/test_results/256blocks/SPI_TEST_results/SPI_TEST_results2.txt"
+#define MEM_TEST_FILE "/home/pi/pi_test/test_results/256blocks/MEM_TEST_results/MEM_TEST_results2.txt"
+#define MEM_BACKWARDS_TEST_FILE "/home/pi/pi_test/test_results/256blocks/MEM_TEST_results/MEM_BACKWARDS_TEST_results2.txt"
 
 #define TRANSMITLEN (10000)
 #define NUM_OPERATIONS (10000)
