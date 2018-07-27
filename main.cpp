@@ -50,6 +50,7 @@ int main()
 {
 
 #ifdef SPI_TEST
+    cout << "===Starting SPI_TEST===" << endl;
     setup_spi();
     ofstream spi_fileStream;
     spi_fileStream.open(SPI_TEST_FILE,ios::out);
@@ -62,6 +63,7 @@ int main()
     struct timeval spi_end_time;
 
     for (int j=1; j<TRANSMITLEN; j*=2){
+        cout << "block size " << j << endl;
         spi_fileStream << "block size " << j << endl;
         gettimeofday(&spi_start_time,NULL);
         for (int i=0; i<NUM_OPERATIONS; i++){
@@ -74,19 +76,23 @@ int main()
 
         float megabitsPerSec = bitsPerSec/1000000;
         float megabytesPerSec = megabitsPerSec/8.0;
+        cout << " Mb/s: " << megabitsPerSec << endl;
         spi_fileStream << " Mb/s: " << megabitsPerSec << endl;
+        cout << " MB/s: " << megabytesPerSec << endl;
         spi_fileStream << " MB/s: " << megabytesPerSec << endl;
         float realToTheoretical = megabitsPerSec/50;
+        cout << "realToTheoretical " << realToTheoretical << endl;
         spi_fileStream << "realToTheoretical " << realToTheoretical << endl;
     }
 
     spi_fileStream.close();
     bcm2835_spi_end();
     bcm2835_close();
+    cout << "===SPI_TEST finished===" << endl;
 #endif // SPI_TEST
 
 #ifdef MEM_TEST
-
+    cout << "===Starting MEM_TEST===" << endl;
     ofstream mem_resultsFile;
     mem_resultsFile.open(MEM_TEST_FILE,ios::out);
     if(!mem_resultsFile.is_open()){
@@ -126,11 +132,11 @@ int main()
         mem_resultsFile << "It took " << mem_timeElapsed << " seconds to write " << num_files << " " << file_size << "MB files, which is " << 256*8/mem_timeElapsed<< "Mbits per second." << endl;
     }
     mem_resultsFile.close();
-
+    cout << "===MEM_TEST finished===" << endl;
 #endif // MEM_TEST
 
 #ifdef MEM_BACKWARDS_TEST
-
+    cout << "===Starting MEM_BACKWARDS_TEST===" << endl;
     mem_resultsFile.open(MEM_BACKWARDS_TEST_FILE,ios::out);
     if(!mem_resultsFile.is_open()){
         cout << "mem_resultsFile for backwards test failed to open! Exiting program." << endl;
@@ -165,10 +171,11 @@ int main()
         mem_resultsFile << "It took " << mem_timeElapsed << " seconds to write " << num_files << " " << file_size << "MB files, which is " << 256*8/mem_timeElapsed<< "Mbits per second." << endl;
     }
     mem_resultsFile.close();
-
+    cout << "===MEM_BACKWARDS_TEST finished===" << endl;
 #endif // MEM_BACKWARDS_TEST
 
 #ifdef COMBO_TEST
+    cout << "===Starting COMBO_TEST===" << endl;
     ofstream combo_resultsFile;
     combo_resultsFile.open("/home/pi/pi_test/test_results/256blocks/COMBO_TEST_results/COMBO_TEST_results.txt",ios::out);
     if(!mem_resultsFile.is_open()){
@@ -217,7 +224,7 @@ int main()
 
     bcm2835_spi_end();
     bcm2835_close();
-
+    cout << "===COMBO_TEST finished===" << endl;
 #endif // COMBO_TEST
 
 
