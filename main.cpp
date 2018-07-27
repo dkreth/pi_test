@@ -19,6 +19,7 @@
 #define SPI_TEST_FILE "/home/pi/pi_test/test_results/256blocks/SPI_TEST_results/SPI_TEST_results2.txt"
 #define MEM_TEST_FILE "/home/pi/pi_test/test_results/256blocks/MEM_TEST_results/MEM_TEST_results2.txt"
 #define MEM_BACKWARDS_TEST_FILE "/home/pi/pi_test/test_results/256blocks/MEM_TEST_results/MEM_BACKWARDS_TEST_results2.txt"
+#define COMBO_TEST_FILE "/home/pi/pi_test/test_results/256blocks/COMBO_TEST_results/COMBO_TEST_results2.txt"
 
 #define TRANSMITLEN (10000)
 #define NUM_OPERATIONS (10000)
@@ -177,7 +178,7 @@ int main()
 #ifdef COMBO_TEST
     cout << "===Starting COMBO_TEST===" << endl;
     ofstream combo_resultsFile;
-    combo_resultsFile.open("/home/pi/pi_test/test_results/256blocks/COMBO_TEST_results/COMBO_TEST_results.txt",ios::out);
+    combo_resultsFile.open(COMBO_TEST_FILE,ios::out);
     if(!mem_resultsFile.is_open()){
         cout << "combo_resultsFile failed to open! Exiting program." << endl;
         return 1;
