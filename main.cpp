@@ -12,8 +12,8 @@
 #define EN_LDO_MSP 27
 
 #define SPI_TEST
-#define MEM_TEST
-#define MEM_BACKWARDS_TEST
+//#define MEM_TEST
+//#define MEM_BACKWARDS_TEST
 #define COMBO_TEST
 
 #define SPI_TEST_FILE "/home/pi/pi_test/test_results/256blocks/SPI_TEST_results/SPI_TEST_results2.txt"
@@ -179,7 +179,7 @@ int main()
     cout << "===Starting COMBO_TEST===" << endl;
     ofstream combo_resultsFile;
     combo_resultsFile.open(COMBO_TEST_FILE,ios::out);
-    if(!mem_resultsFile.is_open()){
+    if(!combo_resultsFile.is_open()){
         cout << "combo_resultsFile failed to open! Exiting program." << endl;
         return 1;
     }
@@ -198,7 +198,7 @@ int main()
         ofstream combo_fileStream;
         sprintf(combo_fileName,"/media/pi/UPTIMEDRIVE1/new_output_bins/test%d.bin",trialNumber);
         combo_fileStream.open(combo_fileName,ios::out|ios::binary);
-        if(!mem_resultsFile.is_open()){
+        if(!combo_fileStream.is_open()){
             cout << "combo_fileStream failed to open! Exiting program." << endl;
             return 1;
         }
