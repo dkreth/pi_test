@@ -5,7 +5,7 @@ This report aims show the feasibility of using a Raspberry Pi to capture SPI dat
 3) Measuring speed of doing both operations—SPI capture and write to disk—in series
 ## Specs
 * Compiler: GNU GCC Compiler
-* Hardware: Raspberry Pi B+, OS installed on 16GB SanDisk microSD card, 8GB USB A drive
+* Hardware: Raspberry Pi 3 B+, OS installed on 16GB SanDisk microSD card, 8GB USB A drive
 * OS: Raspbian
 * Libraries used: stdlib.h, iostream, fstream, bcm2835.h, sys/time.h
 ## Summary of Results
